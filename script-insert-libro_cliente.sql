@@ -1,0 +1,10 @@
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('10606345', '146947827');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('150927636', '146947827');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('153498214', '80172781');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('153951522', '162803699');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('175499761', '162803699');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('183861911', '162803699');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('193291785', '87971349');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('79620954', '24422640');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('91679210', '28570803');
+INSERT INTO libreriabuscalibre.libro_cliente (ISBN_libro_cliente, id_cliente) VALUES ('96371970', '180053541');
