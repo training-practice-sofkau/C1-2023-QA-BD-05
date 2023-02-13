@@ -3,6 +3,7 @@
 *“Cada día trae una nueva oportunidad”*
 
 **Primera actividad:**
+
 Utilizando el ejercicio de la Librería realizado en clase (se adjunta script SQL), realice lo siguiente:
 
 - Complete la información para las tablas autor, libro, cliente, editorial, libro_cliente, libro_autor y 
@@ -32,7 +33,7 @@ Utilizando el ejercicio del hospital realizado por sus compañeros, realice lo s
 4. Después de realizar el trabajo responda ¿Qué le agregaría al modelo para dar más información y esa información cuál 
 sería?
 5. Una vez realizado el PR se considera como entrega. 
-6. Hora de entrega 11.55 PM
+6. Hora de entrega 11:55 PM
 
 | Recursos             | Fuente                                                                   |
 |----------------------|--------------------------------------------------------------------------|
