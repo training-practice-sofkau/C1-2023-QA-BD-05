@@ -1,1 +1,0 @@
-SELECT autor.nombre, autor.`fecha de nacimiento` FROM libreriabuscalibre.autor;
