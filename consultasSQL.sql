@@ -18,7 +18,15 @@ JOIN telefono_cliente
 ON cliente.cedula = telefono_cliente.cedula_cliente;
 
 -- el nombre del libro acompañado por su autor o sus autores
+SELECT libro.titulo AS libro, GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autores
+FROM libro
+JOIN libro_autor ON libro.ISBN = libro_autor.ISBN_libro
+JOIN autor ON libro_autor.id_autor = autor.id
+GROUP BY libro.titulo;
 
-SELECT autor.nombre, libro.titulo
-FROM
 -- el nombre de las editoriales que han logrado vender libros.
+
+SELECT nombre_editorial, COUNT(*)
+FROM libro
+GROUP BY nombre_editorial
+HAVING COUNT(*) > 0;
