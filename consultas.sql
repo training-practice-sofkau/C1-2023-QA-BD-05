@@ -38,3 +38,24 @@ SELECT nombre_editorial, count(*) as libros_vendidos
 FROM libro
 JOIN libro_cliente ON libro.ISBN = libro_cliente.ISBN_libro_cliente
 GROUP BY nombre_editorial;
+
+-- -----------------------------------------------------
+-- Consulta para conocer los libros más vendidos, junto con su cantidad de ventas
+-- -----------------------------------------------------
+SELECT libro.titulo, COUNT(libro_cliente.ISBN_libro_cliente) AS cantidad_ventas
+FROM libro
+JOIN libro_cliente
+ON libro.ISBN = libro_cliente.ISBN_libro_cliente
+GROUP BY libro.titulo
+ORDER BY cantidad_ventas DESC;
+
+-- -----------------------------------------------------
+-- Consulta para conocer los autores con más libros vendidos
+-- -----------------------------------------------------
+SELECT autor.nombre AS nombre_autor, COUNT(libro.ISBN) AS cantidad_ventas
+FROM autor
+JOIN libro_autor ON autor.id = libro_autor.id_autor
+JOIN libro ON libro_autor.ISBN_libro = libro.ISBN
+JOIN libro_cliente ON libro.ISBN = libro_cliente.ISBN_libro_cliente
+GROUP BY autor.nombre
+ORDER BY cantidad_ventas DESC;
