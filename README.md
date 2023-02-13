@@ -12,6 +12,7 @@ Utilizando el ejercicio de la Librería realizado en clase (se adjunta script SQ
 **Segunda actividad:**
 
 https://github.com/Ococho/Hospital-GNECJ.git
+
 Utilizando el ejercicio del hospital realizado por sus compañeros realice lo siguiente:
 
 - Convierta el MR en una base de datos en MySQL utilizando sentencias SQL o el diagrama EER.
@@ -31,6 +32,6 @@ Utilizando el ejercicio del hospital realizado por sus compañeros realice lo si
 
 | Recursos | Fuente |
 | --- | --- |
-| Libros SQL |  |
+| Libros SQL | https://github.com/Juanes1990/Recursos-PDF.git |
 | Videos de MySQL | https://www.youtube.com/playlist?list=PL-Mlm_HYjCo-T8_c4cq_Turulaizs4tgj |
 | Página de sentencias | https://www.w3schools.com/mysql/mysql_insert.asp |
