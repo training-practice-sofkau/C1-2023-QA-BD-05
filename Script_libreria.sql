@@ -212,10 +212,10 @@ END; //
 DELIMITER ;
 call libreriabuscalibre.agregar_editorial("Editorial 2000", "ciudad 20", "Fundada en 2000", "3189799");
 
--- Trigger para registrar la eliminación de un libro:
+-- Trigger para registrar la eliminación de una editorial:
 
 DELIMITER //
-CREATE TRIGGER eliminar_libro_trigger
+CREATE TRIGGER eliminar_editorial_trigger
 BEFORE DELETE ON editorial
 FOR EACH ROW
 BEGIN
