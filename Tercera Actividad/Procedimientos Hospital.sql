@@ -1,6 +1,7 @@
 USE hospital;
 
 SELECT * FROM tb_medico;
+SELECT * FROM control_de_cambios_libreria;
 
 -- -----------------------------------------------------
 -- Agregar Médico
@@ -12,8 +13,8 @@ INSERT INTO tb_medico (id_medico, nombre_medico, apellido_medico, especialidad) 
 END
 //
 
-call hospital.agregar_medico('M6', 'Mauricio', 'Arias', 'Endocrinologia');
 call hospital.agregar_medico('M7', 'Carla', 'Jimenez', 'Ginecología');
+call hospital.agregar_medico('M8', 'Isabela', 'Torres', 'Cardiologia');
 
 -- -----------------------------------------------------
 -- Actualizar Médico
@@ -25,7 +26,7 @@ UPDATE tb_medico SET nombre_medico = nombre, apellido_medico = apellido, especia
 END;
 //
 
-call hospital.actualizar_medico('M5', 'Jimmy', 'Martinez', 'Neurologia');
+call hospital.actualizar_medico('M5', 'Jimmy', 'Sanchez', 'Neurologia');
 
 -- -----------------------------------------------------
 -- Consultar Medico
