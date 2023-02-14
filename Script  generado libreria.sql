@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`autor` (
   `id` VARCHAR(10) NOT NULL,
-  `fecha de nacimiento` VARCHAR(45) NULL,
+  `fecha_de_nacimiento` VARCHAR(45) NULL,
   `nacionalidad` VARCHAR(20) NULL,
   `nombre` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -128,7 +128,7 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO `LibreriaBuscaLibre`.`autor` (`id`, `fecha de nacimiento`, `nacionalidad`, `nombre`) 
+INSERT INTO `LibreriaBuscaLibre`.`autor` (`id`, `fecha_de_nacimiento`, `nacionalidad`, `nombre`) 
 VALUES 
 ('A001', '01/01/1980', 'Español', 'Juan Pérez'),
 ('A002', '02/02/1985', 'Mexicano', 'María García'),
@@ -230,4 +230,86 @@ VALUES
 ("6000000000", "555-555-2345");
 SELECT *
 FROM telefono_cliente;
+
+-- -----------------------------------------------------
+------#CONSULTAS  - El nombre y la fecha de nacimiento de cada escritor  -------------------------
+-- -----------------------------------------------------
+SELECT nombre, fecha_de_nacimiento FROM autor WHERE id='A001';
+SELECT nombre, fecha_de_nacimiento FROM autor WHERE id='A002';
+SELECT nombre, fecha_de_nacimiento FROM autor WHERE id='A003';
+SELECT nombre, fecha_de_nacimiento FROM autor WHERE id='A004';
+SELECT nombre, fecha_de_nacimiento FROM autor WHERE id='A005';
+
+-- -----------------------------------------------------
+------#CONSULTAS  - La cantidad de libros diferentes vendidos  -------------------------
+-- -----------------------------------------------------
+
+SELECT COUNT(DISTINCT ISBN) FROM libro;
+SELECT COUNT(DISTINCT ISBN) FROM libro WHERE numero_paginas>'300';
+SELECT COUNT(DISTINCT ISBN) FROM libro WHERE nombre_editorial='Editorial A';
+SELECT COUNT(DISTINCT ISBN) FROM libro WHERE titulo LIKE '%Libro%';
+SELECT COUNT(DISTINCT ISBN) FROM libro WHERE nombre_editorial='Editorial B' AND numero_paginas<'400';
+
+-- -----------------------------------------------------
+------#CONSULTAS  - El nombre de su cliente acompañado de su numero teléfonico  -------------------------
+-- -----------------------------------------------------
+
+SELECT c.nombre, t.numero
+FROM cliente c
+JOIN telefono_cliente t ON c.cedula = t.cedula_cliente;
+
+SELECT c.nombre, GROUP_CONCAT(t.numero SEPARATOR ', ') AS numeros
+FROM cliente c
+JOIN telefono_cliente t ON c.cedula = t.cedula_cliente
+GROUP BY c.nombre;
+
+SELECT c.nombre, t.numero
+FROM cliente c
+LEFT JOIN telefono_cliente t ON c.cedula = t.cedula_cliente;
+
+SELECT c.nombre, t.numero
+FROM telefono_cliente t
+JOIN cliente c ON t.cedula_cliente = c.cedula;
+
+SELECT c.nombre, t.numero
+FROM telefono_cliente t
+RIGHT JOIN cliente c ON t.cedula_cliente = c.cedula;
+
+-- -----------------------------------------------------
+-- ----#CONSULTAS  - El nombre del libro acompañado por su autor o sus autores  ------------
+-- -----------------------------------------------------
+
+SELECT libro.titulo, autor.nombre
+FROM LibreriaBuscaLibre.libro
+JOIN LibreriaBuscaLibre.libro_autor ON libro.ISBN = libro_autor.ISBN_libro
+JOIN LibreriaBuscaLibre.autor ON libro_autor.id_autor = autor.id;
+
+-- -----------------------------------------------------
+-- ----#CONSULTAS  -El nombre de las editoriales que han logrado vender libros  ------------
+-- -----------------------------------------------------
+SELECT DISTINCT nombre_editorial
+FROM LibreriaBuscaLibre.libro;
+
+-- -----------------------------------------------------
+-- ----#CONSULTAS  -VISTAS que considero son las más importantes------------
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- ----#CONSULTAS  -VISTA de los libros y sus autores:------------
+-- -----------------------------------------------------
+CREATE VIEW vista_libros_autores AS
+SELECT libro.titulo AS 'Título del libro', autor.nombre AS 'Nombre del autor'
+FROM libro
+INNER JOIN libro_autor ON libro.ISBN = libro_autor.ISBN_libro
+INNER JOIN autor ON libro_autor.id_autor = autor.id;
+SELECT * FROM vista_libros_autores;
+
+-- -----------------------------------------------------
+-- ----#CONSULTAS  -VISTA de los clientes y los libros que han comprado:------------
+-- -----------------------------------------------------
+CREATE VIEW vista_clientes_libros AS
+SELECT cliente.nombre AS 'Nombre del cliente', libro.titulo AS 'Título del libro'
+FROM cliente
+INNER JOIN libro_cliente ON cliente.cedula = libro_cliente.id_cliente
+INNER JOIN libro ON libro_cliente.ISBN_libro_cliente = libro.ISBN;
+SELECT * FROM vista_clientes_libros;
 
