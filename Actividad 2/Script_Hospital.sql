@@ -197,3 +197,171 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+#Poblando la base de datos
+
+INSERT INTO `mydb`.`Medico` (`id_Medico`, `Nombre`, `Apellido`, `Especialidad`)
+VALUES 
+  ('1', 'Juan', 'Perez', 'Cardiología'),
+  ('2', 'Maria', 'Gomez', 'Pediatría'),
+  ('3', 'Luis', 'Martinez', 'Cirugía'),
+  ('4', 'Ana', 'Ruiz', 'Oftalmología'),
+  ('5', 'Carlos', 'Garcia', 'Dermatología');
+SELECT *
+FROM `mydb`.`Medico`;
+
+INSERT INTO `mydb`.`Procedimiento` (`id_Procedimiento`, `tipo_procedimiento`)
+VALUES 
+  ('1', 'Extracción de sangre'),
+  ('2', 'Radiografía'),
+  ('3', 'Colonoscopía'),
+  ('4', 'Cirugía de cataratas'),
+  ('5', 'Endoscopía');
+  SELECT *
+FROM `mydb`.`Procedimiento`;
+
+INSERT INTO `mydb`.`Procedimiento_has_Medico` (`Procedimiento_id_Procedimiento`, `Medico_id_Medico`)
+VALUES 
+  ('1', '1'),
+  ('2', '2'),
+  ('3', '3'),
+  ('4', '4'),
+  ('5', '5');
+SELECT *
+FROM `mydb`.`Procedimiento_has_Medico`;
+
+INSERT INTO `mydb`.`Paciente` (`id_Paciente`, `nombre_paciente`, `apellido_paciente`, `Direccion`, `Id_Procedimiento_FK`)
+VALUES 
+  ('1', 'Juan', 'González', 'Calle 123', '1'),
+  ('2', 'María', 'Martínez', 'Avenida 456', '2'),
+  ('3', 'Pedro', 'García', 'Calle 789', '3'),
+  ('4', 'Ana', 'Rodríguez', 'Avenida 012', '4'),
+  ('5', 'Sofía', 'Sánchez', 'Calle 345', '5');
+SELECT *
+FROM `mydb`.`Paciente`;
+
+INSERT INTO `mydb`.`Telefono_paciente` (`Telefono`, `Id_Paciente_Telefono`)
+VALUES 
+  ('555-1111', '1'),
+  ('555-2222', '2'),
+  ('555-3333', '3'),
+  ('555-4444', '4'),
+  ('555-5555', '5');
+  SELECT *
+FROM `mydb`.`Telefono_paciente`;
+
+INSERT INTO `mydb`.`Factura` (`id_Factura`, `fecha`, `Valor_total`, `Id_Paciente_Factura`)
+VALUES 
+  ('1', '2022-01-01', '100', '1'),
+  ('2', '2022-01-02', '200', '2'),
+  ('3', '2022-01-03', '300', '3'),
+  ('4', '2022-01-04', '400', '4'),
+  ('5', '2022-01-05', '500', '5');
+  SELECT *
+FROM `mydb`.`Factura`;
+
+INSERT INTO mydb.Medicamento (id_Medicamento, Nombre, dosis) VALUES
+('M001', 'Ibuprofeno', '400 mg'),
+('M002', 'Paracetamol', '500 mg'),
+('M003', 'Amoxicilina', '500 mg'),
+('M004', 'Omeprazol', '20 mg'),
+('M005', 'Diazepam', '5 mg');
+ SELECT *
+FROM mydb.Medicamento;
+
+INSERT INTO Medicamento_has_Paciente (Medicamento_id_Medicamento, Paciente_id_Paciente) 
+VALUES ('M001', '1');
+INSERT INTO Medicamento_has_Paciente (Medicamento_id_Medicamento, Paciente_id_Paciente) 
+VALUES ('M002', '2');
+INSERT INTO Medicamento_has_Paciente (Medicamento_id_Medicamento, Paciente_id_Paciente) 
+VALUES ('M003', '3');
+INSERT INTO Medicamento_has_Paciente (Medicamento_id_Medicamento, Paciente_id_Paciente) 
+VALUES ('M004', '4');
+INSERT INTO Medicamento_has_Paciente (Medicamento_id_Medicamento, Paciente_id_Paciente) 
+VALUES ('M005', '5');
+SELECT *
+FROM Medicamento_has_Paciente;
+
+INSERT INTO `Telefono_Medico` (`Telefono`, `Id_Medico_Telefono`) 
+VALUES 
+    ('1234567890', '1'), 
+    ('0987654321', '2'), 
+    ('5554443333', '3'), 
+    ('1112223333', '4'), 
+    ('4445556666', '5');
+    SELECT *
+FROM `Telefono_Medico`;
+
+INSERT INTO `Enfermero` (`id_Enfermero`, `Nombre`, `Apellido`, `Id_Medico_FK`) 
+VALUES 
+    ('1', 'Juan', 'Pérez', '1'), 
+    ('2', 'María', 'García', '2'), 
+    ('3', 'Luis', 'González', '3'), 
+    ('4', 'Ana', 'Martínez', '4'), 
+    ('5', 'Carlos', 'Ruiz', '5');
+ SELECT *
+FROM `Enfermero`;
+
+INSERT INTO `Telefono_Enfermero` (`Telefono`, `Id_Enfermero_FK`) 
+VALUES 
+    ('123-456-7890', '1'),
+    ('234-567-8901', '2'),
+    ('345-678-9012', '3'),
+    ('456-789-0123', '4'),
+    ('567-890-1234', '5');
+SELECT *
+FROM `Telefono_Enfermero`;
+
+
+#CONSULTAS
+-- -----------------------------------------------------
+-- Para conocer los medicamentos que ha tomado cada paciente y la dosis suministrada.
+-- -----------------------------------------------------
+SELECT p.nombre_paciente, m.Nombre, m.dosis
+FROM Paciente p
+INNER JOIN Medicamento_has_Paciente mp ON p.id_Paciente = mp.Paciente_id_Paciente
+INNER JOIN Medicamento m ON mp.Medicamento_id_Medicamento = m.id_Medicamento;
+
+-- -----------------------------------------------------
+-- Para conocer los enfermeros que estuvieron en los procedimientos de los pacientes
+-- -----------------------------------------------------
+SELECT P.nombre_paciente, P.apellido_paciente, PR.tipo_procedimiento, M.Nombre AS NombreMedico, M.Apellido AS ApellidoMedico, E.Nombre AS NombreEnfermero, E.Apellido AS ApellidoEnfermero
+FROM Paciente AS P
+INNER JOIN Procedimiento AS PR ON P.Id_Procedimiento_FK = PR.id_Procedimiento
+INNER JOIN Procedimiento_has_Medico AS PM ON PR.id_Procedimiento = PM.Procedimiento_id_Procedimiento
+INNER JOIN Medico AS M ON PM.Medico_id_Medico = M.id_Medico
+INNER JOIN Enfermero AS E ON M.id_Medico = E.Id_Medico_FK;
+
+
+#VISTAS 
+-- -----------------------------------------------------
+-- Vista para mostrar la información del paciente, la factura correspondiente y el total de la factura
+-- -----------------------------------------------------
+CREATE VIEW `mydb`.`Paciente_Factura` AS 
+SELECT p.nombre_paciente, p.apellido_paciente, p.Direccion, f.fecha, f.Valor_total 
+FROM `mydb`.`Paciente` p 
+JOIN `mydb`.`Factura` f ON p.id_Paciente = f.Id_Paciente_Factura;
+SELECT *
+FROM `mydb`.`Paciente_Factura`;
+
+-- -----------------------------------------------------
+-- Vista para mostrar los médicos y los procedimientos a los que están asociados
+-- -----------------------------------------------------
+CREATE VIEW `mydb`.`Medico_Procedimiento` AS 
+SELECT m.Nombre, m.Apellido, m.Especialidad, p.tipo_procedimiento 
+FROM `mydb`.`Medico` m 
+JOIN `mydb`.`Procedimiento_has_Medico` pm ON m.id_Medico = pm.Medico_id_Medico 
+JOIN `mydb`.`Procedimiento` p ON pm.Procedimiento_id_Procedimiento = p.id_Procedimiento;
+SELECT *
+FROM `mydb`.`Medico_Procedimiento`;
+
+-- -----------------------------------------------------
+-- Vista para mostrar la información de los medicamentos que ha sido prescrita a cada paciente
+-- -----------------------------------------------------
+CREATE VIEW `mydb`.`Paciente_Medicamento` AS 
+SELECT p.nombre_paciente, p.apellido_paciente, m.Nombre, m.dosis 
+FROM `mydb`.`Paciente` p 
+JOIN `mydb`.`Medicamento_has_Paciente` mp ON p.id_Paciente = mp.Paciente_id_Paciente 
+JOIN `mydb`.`Medicamento` m ON mp.Medicamento_id_Medicamento = m.id_Medicamento;
+SELECT *
+FROM `mydb`.`Paciente_Medicamento`;
