@@ -1,3 +1,5 @@
+use hospital;
+
 # Registros agregados a las tablas
 
 -- Tabla médico
@@ -124,6 +126,99 @@ JOIN Medicamento ON Paciente_has_Medicamento.idMedicamento = Medicamento.idMedic
 CREATE VIEW vista_medicos_especialidad AS
 SELECT idMedico, nombre, especialidad
 FROM Medico;
+
+-- Agregar un nuevo registro en la tabla Medico
+
+DELIMITER //
+CREATE PROCEDURE agregar_Medico (
+    IN idMedico_medico VARCHAR(25),
+    IN nombre_medico VARCHAR(45),
+    IN especialidad_medico VARCHAR(45),
+    IN telefono_medico VARCHAR(45)
+)
+BEGIN
+    INSERT INTO Medico (idMedico, nombre, especialidad, telefono)
+    VALUES (idMedico_medico, nombre_medico, especialidad_medico, telefono_medico);
+END //
+DELIMITER ;
+call hospital.agregar_Medico('M006', 'Jeison', 'Ginecologo', '2223311');
+
+-- Actualizar un registro existente en la tabla Medico
+
+DELIMITER //
+CREATE PROCEDURE actualizarMedico_Medico (IN idMedico_Medico VARCHAR(10), IN nombre_Medico VARCHAR(50), IN especialidad_Medico VARCHAR(50),
+    IN telefono_Medico VARCHAR(15)
+)
+BEGIN
+    UPDATE Medico
+    SET nombre = nombre_Medico, especialidad = especialidad_Medico, telefono = telefono_Medico
+    WHERE idMedico = idMedico_Medico;
+END //
+DELIMITER ;
+call hospital.actualizarMedico_Medico('M001', 'Juanes', 'Oncólogo', '4446587');
+
+-- Consultar un registro en la tabla Medico
+
+DELIMITER //
+CREATE PROCEDURE consultarMedico_Medico (
+    IN idMedico_Medico VARCHAR(10)
+)
+BEGIN
+    SELECT idMedico, nombre, especialidad, telefono
+    FROM Medico
+    WHERE idMedico = idMedico_Medico;
+END //
+DELIMITER ;
+call hospital.consultarMedico_Medico('M002');
+
+-- Eliminar un registro de la tabla Medico
+
+DELIMITER //
+CREATE PROCEDURE eliminarMedico_Medico (IN idMedico_Medico VARCHAR(10)
+)
+BEGIN
+    DELETE FROM Medico WHERE idMedico = idMedico_Medico;
+END //
+DELIMITER ;
+call hospital.eliminarMedico_Medico('M006');
+
+-- tabla llamada "control_de_cambios_hospital" con las columnas "usuario", "accion" y "fecha"
+
+CREATE TABLE control_de_cambios_hospital (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario VARCHAR(50),
+  accion VARCHAR(10),
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE control_de_cambios_hospital (
+    usuario VARCHAR(50),
+    accion VARCHAR(50),
+    fecha DATETIME
+);
+
+-- Trigger Para agregar registros en la tabla Medico
+
+DELIMITER //
+CREATE TRIGGER tr_agregarMedico 
+AFTER INSERT ON Medico
+FOR EACH ROW
+BEGIN
+    INSERT INTO control_de_cambios_hospital (usuario, accion, fecha) VALUES (USER(), 'insertar', NOW());
+END; //
+DELIMITER ;
+call hospital.agregar_Medico('M0020', 'Ledys', 'General', '445511');
+
+-- Trigger Para eliminar registros de la tabla Medico
+  
+DELIMITER //
+CREATE TRIGGER tr_eliminarMedico AFTER DELETE ON Medico
+FOR EACH ROW
+BEGIN
+    INSERT INTO control_de_cambios_hospital (usuario, accion, fecha) VALUES (USER(), 'eliminar', NOW());
+END; //
+DELIMITER ;
+call hospital.eliminarMedico_Medico('M0020');
   
 -- SENTENCIAS PARA CREAR LA BASE DE DATOS
 
