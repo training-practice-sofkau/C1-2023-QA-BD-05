@@ -127,3 +127,21 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Ingresando datos a las tablas
+-- -----------------------------------------------------
+USE `LibreriaBuscaLibre`;
+
+-- -----------------------------------------------------
+-- Tabla Autor
+-- -----------------------------------------------------
+INSERT INTO `libreriabuscalibre`.`autor` VALUES ('1', '1/1/1980', 'COL', 'Juan');
+INSERT INTO `libreriabuscalibre`.`autor` VALUES ('2', '1/2/1980', 'ESP', 'Luis');
+INSERT INTO `libreriabuscalibre`.`autor` VALUES ('3', '1/3/1980', 'VEN', 'José');
+INSERT INTO `libreriabuscalibre`.`autor` VALUES ('4', '1/4/1980', 'USA', 'Mark');
+INSERT INTO `libreriabuscalibre`.`autor` VALUES ('5', '1/5/1980', 'RUS', 'Alek');
+
+-- -----------------------------------------------------
+-- Tabla Libro
+-- -----------------------------------------------------
