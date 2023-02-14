@@ -50,6 +50,37 @@ END//
 DELIMITER ;
 CALL sp_borrar_cliente('9898011');
 
+# Crear la tabla control_de_cambios_librería
+CREATE TABLE IF NOT EXISTS control_de_cambios_librería (
+  usuario VARCHAR(45) NOT NULL,
+  accion VARCHAR(10) NOT NULL,
+  fecha DATETIME NOT NULL,
+  PRIMARY KEY (usuario, accion, fecha)
+) ENGINE=InnoDB;
+
+# Trigger para agregar registros en la tabla cliente
+DELIMITER //
+CREATE TRIGGER tr_insertar_cliente
+AFTER INSERT ON cliente
+FOR EACH ROW
+BEGIN
+  INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
+  VALUES (USER(), "insert", NOW());
+END;
+DELIMITER //
+
+# Trigger para eliminar registros en la tabla cliente
+DELIMITER //
+CREATE TRIGGER tr_eliminar_cliente
+AFTER DELETE ON cliente
+FOR EACH ROW
+BEGIN
+  INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
+  VALUES (USER(), "delete", NOW());
+END;
+DELIMITER //
+
+
 
 
 
