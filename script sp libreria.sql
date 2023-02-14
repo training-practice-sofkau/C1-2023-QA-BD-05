@@ -66,8 +66,8 @@ FOR EACH ROW
 BEGIN
   INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
   VALUES (USER(), "insert", NOW());
-END;
-DELIMITER //
+END//
+DELIMITER ;
 
 # Trigger para eliminar registros en la tabla cliente
 DELIMITER //
@@ -77,8 +77,8 @@ FOR EACH ROW
 BEGIN
   INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
   VALUES (USER(), "delete", NOW());
-END;
-DELIMITER //
+END//
+DELIMITER ;
 
 
 
