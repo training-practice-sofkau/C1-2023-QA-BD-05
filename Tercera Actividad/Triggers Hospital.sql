@@ -38,3 +38,5 @@ END;
 //
 
 call hospital.eliminar_medico('M9');
+
+SELECT * FROM control_de_cambios_hospital;
