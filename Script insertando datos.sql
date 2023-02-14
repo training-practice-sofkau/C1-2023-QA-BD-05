@@ -179,20 +179,20 @@ CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`libro_cliente` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-INSERT INTO  `LibreriaBuscaLibre`.`libro_cliente` (  `ISBN_libro_cliente` ,`id_cliente`)
-VALUES    ("123J", "1088888" ),
-    ("123k", "1088888"),
-    ("123L", "101010101"),
-    ("123M", "101010101"),
-    ("123N", "202020202"),
-    ("123O", "202020202"),
-    ("123P", "303030303"),
-    ("123Q", "303030303"),
-    ("123R", "404040404"),
-    ("123S", "505050505"),
-    ("123T", "606060606"),
-    ("123U", "606060606"),
-    ("123V", "101010101");
+    INSERT INTO  `LibreriaBuscaLibre`.`libro_cliente` (  `ISBN_libro_cliente` ,`id_cliente`)
+    VALUES    ("123J", "1088888" ),
+        ("123k", "1088888"),
+        ("123L", "101010101"),
+        ("123M", "101010101"),
+        ("123N", "202020202"),
+        ("123O", "202020202"),
+        ("123P", "303030303"),
+        ("123Q", "303030303"),
+        ("123R", "404040404"),
+        ("123S", "505050505"),
+        ("123T", "606060606"),
+        ("123U", "606060606"),
+        ("123V", "101010101");
 
 
 
