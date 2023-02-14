@@ -9,7 +9,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL insertar_libro("011-011", "Harry Potter I", "450", "Libro al viento");
+CALL insertar_libro("012-012", "Harry Potter II", "450", "Libro al viento");
 
 -- Procedimiento actualizar
 DELIMITER //
@@ -43,5 +43,5 @@ DELETE FROM libro WHERE ISBN = idLibro;
 END //
 DELIMITER ;
 
-CALL borrarLibro ('011-011');
+CALL borrarLibro ('012-012');
 
