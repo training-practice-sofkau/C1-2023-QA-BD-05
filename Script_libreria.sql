@@ -148,3 +148,201 @@ CREATE VIEW informacion_autores AS
 SELECT nombre, `fecha de nacimiento`, nacionalidad
 FROM autor;
 
+--  TERCERA ACTIVIDAD
+
+-- agregar un nueva editorial
+
+DELIMITER //
+CREATE PROCEDURE agregar_editorial(IN nombre VARCHAR(50), IN ciudad VARCHAR(30), IN complemento VARCHAR(100), IN Telefono VARCHAR(20))
+BEGIN
+    INSERT INTO editorial(nombre, ciudad, complemento, Telefono) VALUES(nombre, ciudad, complemento, Telefono);
+END //
+DELIMITER ;
+call libreriabuscalibre.agregar_editorial("Editorial 1000", "ciudad 20", "Fundada en 2000", "3189799");
+
+-- actualizar información de una editorial existente
+
+DELIMITER //
+CREATE PROCEDURE actualizar_editorial(IN nombre_editorial VARCHAR(50), IN ciudad_editorial VARCHAR(30), IN complemento_editorial VARCHAR(100), 
+IN Telefono_editorial VARCHAR(20))
+BEGIN
+    UPDATE editorial SET ciudad = ciudad_editorial, complemento = complemento_editorial, Telefono = Telefono_editorial WHERE nombre = nombre_editorial;
+    INSERT INTO control_de_cambios_librería(usuario, accion, fecha) VALUES(usuario, 'actualizar_editorial', NOW());
+END //
+DELIMITER ;
+call libreriabuscalibre.actualizar_editorial('Editorial 2', 'Ciudad 8 ', 'Fundada en 1800', '1111111');
+
+-- Consultar información de una editorial por su nombre
+
+DELIMITER //
+CREATE PROCEDURE consultar_editorial(IN nombre_editorial VARCHAR(50))
+BEGIN
+    SELECT * FROM editorial WHERE nombre = nombre_editorial;
+END //
+DELIMITER ;
+call libreriabuscalibre.consultar_editorial('Editorial 3');
+
+-- Eliminar una editorial por su nombre
+
+DELIMITER //
+CREATE PROCEDURE borrar_editorial(IN nombre_editorial VARCHAR(50))
+BEGIN
+    DELETE FROM editorial WHERE nombre = nombre_editorial;
+END //
+DELIMITER ;
+call libreriabuscalibre.borrar_editorial('Editorial 5');
+
+-- tabla llamada "control_de_cambios_librería" con las columnas "usuario", "accion" y "fecha"
+
+CREATE TABLE control_de_cambios_librería (
+  usuario VARCHAR(50),
+  accion VARCHAR(50),
+  fecha DATETIME
+);
+
+-- Trigger para registrar la inserción de una editorial:
+
+DELIMITER //
+CREATE TRIGGER agregar_editorial_trigger 
+AFTER INSERT ON editorial
+FOR EACH ROW
+BEGIN
+    INSERT INTO control_de_cambios_librería (usuario, accion, fecha) VALUES (USER(), 'insertar', NOW());
+END; //
+DELIMITER ;
+call libreriabuscalibre.agregar_editorial("Editorial 2000", "ciudad 20", "Fundada en 2000", "3189799");
+
+-- Trigger para registrar la eliminación de un libro:
+
+DELIMITER //
+CREATE TRIGGER eliminar_libro_trigger
+BEFORE DELETE ON editorial
+FOR EACH ROW
+BEGIN
+	INSERT INTO control_de_cambios_librería (usuario, accion, fecha) VALUES (USER(), 'eliminar', NOW());
+END //
+DELIMITER ;
+call libreriabuscalibre.borrar_editorial('Editorial 2000');
+
+-- -----------------------------------------------------
+-- Schema LibreriaBuscaLibre
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `LibreriaBuscaLibre` DEFAULT CHARACTER SET utf8 ;
+USE `LibreriaBuscaLibre` ;
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`Editorial`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`Editorial` (
+  `nombre` VARCHAR(50) NOT NULL,
+  `ciudad` VARCHAR(30) NOT NULL,
+  `complemento` VARCHAR(100) NOT NULL,
+  `Telefono` VARCHAR(20) NOT NULL DEFAULT '6013909541',
+  PRIMARY KEY (`nombre`),
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`libro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`libro` (
+  `ISBN` VARCHAR(10) NOT NULL,
+  `titulo` VARCHAR(45) NOT NULL,
+  `numero_paginas` VARCHAR(45) NULL,
+  `nombre_editorial` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`ISBN`),
+  INDEX `nombre_editorial_idx` (`nombre_editorial` ASC) VISIBLE,
+  CONSTRAINT `nombre_editorial`
+    FOREIGN KEY (`nombre_editorial`)
+    REFERENCES `LibreriaBuscaLibre`.`Editorial` (`nombre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`cliente` (
+  `cedula` VARCHAR(10) NOT NULL,
+  `nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`cedula`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`autor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`autor` (
+  `id` VARCHAR(10) NOT NULL,
+  `fecha de nacimiento` VARCHAR(45) NULL,
+  `nacionalidad` VARCHAR(20) NULL,
+  `nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`libro_autor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`libro_autor` (
+  `ISBN_libro` VARCHAR(10) NOT NULL,
+  `id_autor` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`ISBN_libro`, `id_autor`),
+  INDEX `id_autor_idx` (`id_autor` ASC) VISIBLE,
+  CONSTRAINT `id_autor`
+    FOREIGN KEY (`id_autor`)
+    REFERENCES `LibreriaBuscaLibre`.`autor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ISBN_libro`
+    FOREIGN KEY (`ISBN_libro`)
+    REFERENCES `LibreriaBuscaLibre`.`libro` (`ISBN`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`libro_cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`libro_cliente` (
+  `ISBN_libro_cliente` VARCHAR(10) NOT NULL,
+  `id_cliente` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`ISBN_libro_cliente`, `id_cliente`),
+  INDEX `id_cliente_idx` (`id_cliente` ASC) VISIBLE,
+  CONSTRAINT `ISBN_libro_cliente`
+    FOREIGN KEY (`ISBN_libro_cliente`)
+    REFERENCES `LibreriaBuscaLibre`.`libro` (`ISBN`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_cliente`
+    FOREIGN KEY (`id_cliente`)
+    REFERENCES `LibreriaBuscaLibre`.`cliente` (`cedula`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LibreriaBuscaLibre`.`telefono_cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`telefono_cliente` (
+  `cedula_cliente` VARCHAR(10) NOT NULL,
+  `numero` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`cedula_cliente`, `numero`),
+  CONSTRAINT `cedula_cliente`
+    FOREIGN KEY (`cedula_cliente`)
+    REFERENCES `LibreriaBuscaLibre`.`cliente` (`cedula`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
