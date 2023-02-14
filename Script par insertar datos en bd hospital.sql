@@ -75,6 +75,30 @@ VALUES(1, "112345"),
     (3, "132345"),
     (4, "142345"),
     (5, "152345");
+    
+#Consultas
+# medicamentos a tomado cada paciente y la dosis suministrada.
+SELECT p.nombre, m.nombreMedicamento, m.dosis
+FROM paciente p
+INNER JOIN pacienteMedicamento pm ON p.id = pm.idPaciente
+INNER JOIN medicamento m ON m.id = pm.idMedicamento;
+
+#Enfermeros estuvieron en los procedimientos de los pacientes.
+SELECT pr.tipoProcedimiento, e.nombreEnfermero, p.nombre as nombre_paciente, p.apellido as apellido_paciente
+FROM procedimiento pr
+INNER JOIN paciente p ON p.idProcedimiento = pr.id
+INNER JOIN procedimientoMedico pm ON pm.idProcedimiento = pr.id
+INNER JOIN enfermero e ON e.idMedico = pm.idMedico;
+
+#Vista necesarias
+
+# Medicos que asistieron a pacientes
+
+#Telefonos de los medicos
+
+#Enfermeros estuvieron en los procedimientos de los pacientes.
+
+
 
 
 	
