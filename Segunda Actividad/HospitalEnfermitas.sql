@@ -80,3 +80,5 @@ primary key(idPaciente,idMedicamento),
 foreign key(idPaciente) references Paciente(idPaciente),
 foreign key(idMedicamento) references Medicamento(idMedicamento)
 );
+
+
