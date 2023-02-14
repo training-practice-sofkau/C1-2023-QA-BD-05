@@ -7,3 +7,4 @@ paciente.nombre AS nombre_paciente
 FROM procedimiento INNER JOIN paciente ON procedimiento.id = paciente.id_procedimiento
 INNER JOIN medicamento_paciente ON Paciente_id = medicamento_paciente.paciente_id
 INNER JOIN medicamento ON medicamento_id = medicamento.id;
+
