@@ -25,8 +25,27 @@ JOIN autor ON libro_autor.id_autor = autor.id
 GROUP BY libro.titulo;
 
 -- el nombre de las editoriales que han logrado vender libros.
-
 SELECT nombre_editorial, COUNT(*)
 FROM libro
 GROUP BY nombre_editorial
 HAVING COUNT(*) > 0;
+
+
+-- creacion de la primera vista
+CREATE VIEW vista_libro_autor AS
+SELECT libro.titulo AS libro, GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autores
+FROM libro
+JOIN libro_autor ON libro.ISBN = libro_autor.ISBN_libro
+JOIN autor ON libro_autor.id_autor = autor.id
+GROUP BY libro.titulo;
+
+
+-- creacion de la segunda vista
+CREATE VIEW vista_libro_cliente AS
+SELECT cliente.nombre AS cliente, GROUP_CONCAT(libro.titulo SEPARATOR ', ') AS libros
+FROM cliente
+JOIN libro_cliente ON cliente.cedula = libro_cliente.id_cliente
+JOIN libro ON libro_cliente.ISBN_libro_cliente = libro.ISBN
+GROUP BY cliente.nombre;
+
+
