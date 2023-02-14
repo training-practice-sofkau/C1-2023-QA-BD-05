@@ -170,7 +170,7 @@ VALUES
 (4, "El código da Vinci",  300, "Editorial Santy"),
 (5, "Harry Potter y la piedra filosofal",  350, "Editorial Minuto de DIOS"),
 (6, "La isla del tesoro", 200, "Editorial Minuto de DIOS"),
-(7, "La Odisea", "800 a.C", 250, "Editorial Minuto de DIOS"),
+(7, "La Odisea", 250, "Editorial Minuto de DIOS"),
 (8, "Los hermanos Karamazov", 450, "Editorial Minuto de DIOS"),
 (9, "Cien años de soledad", 400, "Editorial Letricas"),
 (10, "Matar a un ruiseñor", 300, "Editorial Letricas"),
@@ -184,8 +184,106 @@ VALUES
 (18, "1984", 300, "Editorial Springfield"),
 (19, "Un mundo feliz", 150, "Editorial Springfield"),
 (20, "El cuento de la criada", 250, "Editorial Springfield");
+ 
+ -- Tabla LibroCliente
+ 
+ INSERT INTO `libreriabuscalibre`.`libro_cliente` (`ISBN_libro_cliente`, `id_cliente`) 
+ VALUES
+('1', '1'),
+('2', '1'),
+('3', '1'),
+('1', '2'),
+('1', '3'),
+('1', '4'),
+('4', '5'),
+('4', '6'),
+('5', '6'),
+('6', '7');
 
+ -- Tabla Libro Autor
+ 
+INSERT INTO `libreriabuscalibre`.`libro_autor` (`ISBN_libro`, `id_autor`) 
+VALUES
+ ('1', '1'),
+ ('2', '1'),
+ ('3', '2'),
+ ('4', '2'),
+ ('5', '3'),
+ ('6', '3'),
+ ('7', '4'),
+ ('8', '4'),
+ ('9', '5'),
+ ('10', '5'),
+ ('11', '1'),
+ ('12', '1'),
+ ('13', '1'),
+ ('14', '2'),
+ ('15', '2'),
+ ('16', '3'),
+ ('17', '3'),
+ ('18', '4'),
+ ('19', '4'),
+ ('20', '5');
+ 
+ 
+ -- Registros telefono_cliente 
+ INSERT INTO `libreriabuscalibre`.`telefono_cliente` (`cedula_cliente`, `numero`)
+ VALUES
+ ('1', '1213231'),
+ ('2', '13231321'),
+ ('3', '123233'),
+ ('4', '13231'),
+ ('5', '12313132'),
+ ('6', '132132'),
+ ('7', '12331321'),
+ ('7', '1321321'),
+ ('1', '12123'),
+ ('2', '123123331'),
+ ('1', '132313'),
+ ('2', '13213211');
+ 
+ 
 
-
+ -- Consulta nombre y fecha de nacimiento de cada escritor
 SELECT nombre, `fecha de nacimiento`
 FROM LibreriaBuscaLibre.autor;
+
+
+-- Titulo libro con su autor o autores 
+-- Vistas TelefonosClienteVisualizar
+
+CREATE VIEW VistaAutorLibro AS
+SELECT titulo, GROUP_CONCAT(nombre SEPARATOR ', ') as autores
+FROM libro
+JOIN libro_autor
+ON libro.ISBN = libro_autor.ISBN_libro
+JOIN autor
+ON libro_autor.id_autor = autor.id
+GROUP BY titulo;
+
+-- 
+SELECT DISTINCT nombre_editorial
+FROM libro
+JOIN libro_cliente
+ON libro.ISBN = libro_cliente.ISBN_libro_cliente;
+
+-- Cantidad de libros vendidos 
+CREATE VIEW ComprasLibroDistintos AS 
+SELECT count(DISTINCT ISBN_libro_cliente) AS "Contador de compras " FROM libro_cliente;
+
+-- Nombre editoriales que han vendido libros 
+SELECT DISTINCT libro.nombre_editorial AS "editorial"
+FROM libro INNER JOIN libro_cliente ON libro.ISBN = libro_cliente.ISBN_libro_cliente;
+
+-- El nombre de su cliente acompañado de su número telefónico
+SELECT cliente.nombre, telefono_cliente.numero
+FROM cliente
+JOIN telefono_cliente ON cliente.cedula = telefono_cliente.cedula_cliente;
+
+-- Vistas TelefonosClienteVisualizar
+
+CREATE VIEW TelefonoClientesVisualizar AS
+SELECT cliente.nombre, telefono_cliente.numero
+FROM cliente
+JOIN telefono_cliente ON cliente.cedula = telefono_cliente.cedula_cliente;
+
