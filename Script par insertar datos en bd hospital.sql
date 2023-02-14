@@ -109,6 +109,11 @@ FROM medico m
 JOIN telefonoMedico tm ON m.id = tm.idtelefonoMedico;
 
 #Vista telefono enfermero
+CREATE VIEW vista_telefono_enfermero AS
+SELECT e.nombreEnfermero, e.apellidoEnfermero, t.telefono
+FROM enfermero e
+JOIN telefonoEnfermero t ON e.idenfermero = t.idtelefonoEnfermero;
+
 
 
 

@@ -47,7 +47,7 @@ INNER JOIN libro_autor ON libro.ISBN = libro_autor.ISBN_libro
 INNER JOIN autor ON autor.id = libro_autor.id_autor;
 
 SELECT * FROM vista_LibrosAutores;
-
+USE libreriabuscalibre;
 SELECT libro.ISBN, libro.titulo as Titulo_Libro, GROUP_CONCAT(autor.nombre SEPARATOR ', ') as Autores
 FROM libro
 INNER JOIN libro_autor ON libro.ISBN = libro_autor.ISBN_libro
@@ -62,12 +62,6 @@ GROUP BY libro.ISBN;
 
 
 
-#la cantidad de libros diferentes vendidos, el nombre de su cliente acompañado de su numero teléfonico
-SELECT libro_cliente.id_cliente, cliente.nombre, libro_cliente.ISBN_libro_cliente, telefono_cliente.numero, libro_autor.id_autor
-FROM libro_cliente
-INNER JOIN cliente ON libro_cliente.id_cliente = cliente.cedula
-INNER JOIN telefono_cliente ON libro_cliente.id_cliente = telefono_cliente.cedula_cliente
-INNER JOIN libro_autor ON libro_cliente.ISBN_libro_cliente = libro_autor.ISBN_libro
 
 
 
