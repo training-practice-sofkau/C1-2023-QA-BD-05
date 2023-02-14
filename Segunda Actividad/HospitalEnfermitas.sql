@@ -1,4 +1,5 @@
-
+CREATE DATABASE IF NOT EXISTS HospitalEnfermitas;
+USE  HospitalEnfermitas;
 
 Create Table Medico(
 idMedico varchar(20) primary key,
