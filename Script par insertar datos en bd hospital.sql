@@ -92,11 +92,24 @@ INNER JOIN enfermero e ON e.idMedico = pm.idMedico;
 
 #Vista necesarias
 
-# Medicos que asistieron a pacientes
+# Medicos  y enfermeros que asistieron a pacientes
+CREATE VIEW enfermero_medico_paciente AS
+SELECT e.nombreEnfermero, e.apellidoEnfermero, p.nombre as paciente, pm.idProcedimiento, m.nombreMedico, m.apellidoMedico
+FROM enfermero e
+JOIN procedimientoMedico pm ON e.idMedico = pm.idMedico
+JOIN paciente p ON p.idProcedimiento = pm.idProcedimiento
+JOIN medico m ON m.id = pm.idMedico;
 
-#Telefonos de los medicos
+SELECT*FROM enfermero_medico_paciente;
 
-#Enfermeros estuvieron en los procedimientos de los pacientes.
+# vista telefono medico
+CREATE VIEW telefono_medico AS
+SELECT m.nombreMedico, tm.telefono
+FROM medico m
+JOIN telefonoMedico tm ON m.id = tm.idtelefonoMedico;
+
+#Vista telefono enfermero
+
 
 
 
