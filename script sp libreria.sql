@@ -23,7 +23,35 @@ BEGIN
     UPDATE cliente SET nombre = nombre_param WHERE cedula = cedula_param;
 END//
 DELIMITER ;
+
+
 CALL sp_actualizar_cliente('9898011', 'AlejandraGuadir');
+
+#sp para consultar clientes
+DELIMITER //
+CREATE PROCEDURE sp_consultar_cliente (
+    IN cedula_param VARCHAR(10)
+)
+BEGIN
+    SELECT * FROM cliente WHERE cedula = cedula_param;
+END//
+DELIMITER ;
+CALL sp_consultar_cliente('9898011');
+
+#sp para eliminar cliente
+
+DELIMITER //
+CREATE PROCEDURE sp_borrar_cliente (
+    IN cedula_param VARCHAR(10)
+)
+BEGIN
+    DELETE FROM cliente WHERE cedula = cedula_param;
+END//
+DELIMITER ;
+CALL sp_borrar_cliente('9898011');
+
+
+
 
 
 
