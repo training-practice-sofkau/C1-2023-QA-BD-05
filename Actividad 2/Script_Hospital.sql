@@ -193,6 +193,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Telefono_Enfermero` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE TABLE control_de_cambios_hospital (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  usuario VARCHAR(50),
+  accion VARCHAR(10),
+  fecha DATETIME
+);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -365,3 +372,98 @@ JOIN `mydb`.`Medicamento_has_Paciente` mp ON p.id_Paciente = mp.Paciente_id_Paci
 JOIN `mydb`.`Medicamento` m ON mp.Medicamento_id_Medicamento = m.id_Medicamento;
 SELECT *
 FROM `mydb`.`Paciente_Medicamento`;
+
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para crear un medicamento::------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE CrearMedicamento
+(
+    IN id_Medicamento VARCHAR(10),
+    IN Nombre VARCHAR(50),
+    IN dosis VARCHAR(20)
+)
+BEGIN
+    INSERT INTO mydb.Medicamento (id_Medicamento, Nombre, dosis) 
+    VALUES (id_Medicamento, Nombre, dosis);
+END //
+DELIMITER ;
+CALL CrearMedicamento('M006', 'Aspirina', '500 mg');
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para consultar un medicamento por su ID:------------
+-- -----------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE ConsultarMedicamento
+(
+    IN id_Medicamento VARCHAR(10)
+)
+BEGIN
+    SELECT * FROM mydb.Medicamento 
+    WHERE id_Medicamento = id_Medicamento;
+END //
+DELIMITER ;
+CALL ConsultarMedicamento('M006');
+drop procedure ConsultarMedicamento;
+-- -----------------------------------------------------
+-- ----#Procedimiento para actualizar un medicamento:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE ActualizarMedicamento
+(
+    IN id_Medicamento VARCHAR(10),
+    IN Nombre VARCHAR(50),
+    IN dosis VARCHAR(20)
+)
+BEGIN
+    UPDATE mydb.Medicamento 
+    SET Nombre = Nombre, dosis = dosis 
+    WHERE id_Medicamento = id_Medicamento;
+END //
+DELIMITER ;
+CALL ActualizarMedicamento('M006', 'Clonazepam', '2 mg');
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para borrar un medicamento por su ID:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE BorrarMedicamento
+(
+    IN id_Medicamento VARCHAR(10)
+)
+BEGIN
+    DELETE FROM mydb.Medicamento 
+    WHERE id_Medicamento = id_Medicamento;
+END //
+DELIMITER ;
+CALL BorrarMedicamento('M006');
+
+-- -----------------------------------------------------
+-- ----#CREACION DE LOS TRIGGERS:------------
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- ----#Trigger para registrar la acción de agregar un registro en la tabla Medicamento:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE TRIGGER tr_control_cambios_agregar
+AFTER INSERT ON Medicamento
+FOR EACH ROW
+BEGIN
+  INSERT INTO control_de_cambios_hospital (usuario, accion, fecha) VALUES (USER(), 'agregar', NOW());
+END //
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- ----#Trigger para registrar la acción de eliminar un registro en la tabla Medicamento:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE TRIGGER tr_control_cambios_eliminar
+AFTER DELETE ON Medicamento
+FOR EACH ROW
+BEGIN
+  INSERT INTO control_de_cambios_hospital (usuario, accion, fecha) VALUES (USER(), 'eliminar', NOW());
+END //
+DELIMITER ;
+

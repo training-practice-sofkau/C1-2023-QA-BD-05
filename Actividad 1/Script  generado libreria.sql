@@ -123,6 +123,12 @@ CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`telefono_cliente` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE TABLE control_de_cambios_librería (
+  usuario VARCHAR(50),
+  accion VARCHAR(50),
+  fecha DATETIME
+);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -313,3 +319,76 @@ INNER JOIN libro_cliente ON cliente.cedula = libro_cliente.id_cliente
 INNER JOIN libro ON libro_cliente.ISBN_libro_cliente = libro.ISBN;
 SELECT * FROM vista_clientes_libros;
 
+
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para agregar un autor:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE sp_agregar_autor(IN autor_id VARCHAR(10), IN fecha_nacimiento DATE, IN nacionalidad VARCHAR(50), 
+IN nombre_autor VARCHAR(100))
+BEGIN
+    INSERT INTO `LibreriaBuscaLibre`.`autor` (`id`, `fecha_de_nacimiento`, `nacionalidad`, `nombre`) 
+    VALUES (autor_id, fecha_nacimiento, nacionalidad, nombre_autor);
+END //
+DELIMITER ;
+CALL sp_agregar_autor('A006', '1990-06-06', 'Peruano', 'Luis Pérez');
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para actualizar un autor:------------
+-- -----------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE sp_actualizar_autor(IN autor_id VARCHAR(10), IN fecha_nacimiento DATE, IN nacionalidad VARCHAR(50), 
+IN nombre_autor VARCHAR(100))
+BEGIN
+    UPDATE `LibreriaBuscaLibre`.`autor` 
+    SET `fecha_de_nacimiento` = fecha_nacimiento, `nacionalidad` = nacionalidad, `nombre` = nombre_autor
+    WHERE `id` = autor_id;
+END //
+DELIMITER ;
+CALL sp_actualizar_autor('A003', '1990-03-03', 'Argentino', 'Carlos Rodríguez Sánchez');
+-- -----------------------------------------------------
+-- ----#Procedimiento para consultar los datos de un autor:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE sp_consultar_autor(IN autor_id VARCHAR(10))
+BEGIN
+    SELECT * FROM `LibreriaBuscaLibre`.`autor` WHERE `id` = autor_id;
+END //
+DELIMITER ;
+CALL sp_consultar_autor('A006');
+
+-- -----------------------------------------------------
+-- ----#Procedimiento para borrar un autor:------------
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE sp_borrar_autor(IN autor_id VARCHAR(10))
+BEGIN
+    DELETE FROM `LibreriaBuscaLibre`.`autor` WHERE `id` = autor_id;
+END //
+DELIMITER ;
+CALL sp_borrar_autor('A006');
+
+-- -----------------------------------------------------
+-- ----#CREACION DE LOS TRIGGERS:------------
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- ----#Trigger para registrar la acción de agregar un registro en la tabla autor:------------
+-- -----------------------------------------------------
+
+CREATE TRIGGER agregar_autor_trigger
+AFTER INSERT ON autor
+FOR EACH ROW
+INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
+VALUES (USER(), 'Agregó un registro en la tabla autor', NOW());
+
+-- -----------------------------------------------------
+-- ----#Trigger para registrar la acción de eliminar un registro en la tabla autor:------------
+-- -----------------------------------------------------
+
+CREATE TRIGGER eliminar_autor_trigger
+AFTER DELETE ON autor
+FOR EACH ROW
+INSERT INTO control_de_cambios_librería (usuario, accion, fecha)
+VALUES (USER(), 'Eliminó un registro en la tabla autor', NOW());
