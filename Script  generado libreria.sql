@@ -1,3 +1,4 @@
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -60,7 +61,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LibreriaBuscaLibre`.`autor` (
   `id` VARCHAR(10) NOT NULL,
-  `fecha de nacimiento` VARCHAR(45) NULL,
+  `fechadenacimiento` VARCHAR(45) NULL,
   `nacionalidad` VARCHAR(20) NULL,
   `nombre` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
