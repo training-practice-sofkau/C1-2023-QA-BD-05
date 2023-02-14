@@ -186,6 +186,22 @@ INSERT INTO `libreriabuscalibre`.`cliente` VALUES ('1111111114', 'Mateo');
 INSERT INTO `libreriabuscalibre`.`cliente` VALUES ('1111111113', 'Sara');
 
 -- -----------------------------------------------------
+-- Tabla Teléfono_Cliente
+-- -----------------------------------------------------
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111113', '5555555555');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111114', '6666666666');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111115', '7777777777');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111116', '8888888888');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111117', '9999999999');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111118', '1011111111');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111119', '2022222222');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111113', '3033333333');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111114', '4044444444');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111115', '5055555555');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111116', '6066666666');
+INSERT INTO `libreriabuscalibre`.`telefono_cliente` VALUES ('1111111117', '7077777777');
+
+-- -----------------------------------------------------
 -- Tabla Libro_Autor
 -- -----------------------------------------------------
 INSERT INTO `libreriabuscalibre`.`libro_autor` VALUES ('10', '1');
@@ -198,3 +214,17 @@ INSERT INTO `libreriabuscalibre`.`libro_autor` VALUES ('22', '1');
 INSERT INTO `libreriabuscalibre`.`libro_autor` VALUES ('24', '3');
 INSERT INTO `libreriabuscalibre`.`libro_autor` VALUES ('26', '5');
 INSERT INTO `libreriabuscalibre`.`libro_autor` VALUES ('28', '5');
+
+-- -----------------------------------------------------
+-- Tabla Libro_Cliente
+-- -----------------------------------------------------
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('11', '1111111113');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('11', '1111111114');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('11', '1111111115');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('13', '1111111116');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('15', '1111111117');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('17', '1111111118');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('19', '1111111119');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('21', '1111111113');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('23', '1111111114');
+INSERT INTO `libreriabuscalibre`.`libro_cliente` VALUES ('25', '1111111115');
