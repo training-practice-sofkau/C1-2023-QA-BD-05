@@ -42,6 +42,7 @@ GROUP BY nombre_editorial;
 -- -----------------------------------------------------
 -- Consulta para conocer los libros más vendidos, junto con su cantidad de ventas
 -- -----------------------------------------------------
+CREATE VIEW libros_mas_vendidos_y_su_cantidad_vendida AS
 SELECT libro.titulo, COUNT(libro_cliente.ISBN_libro_cliente) AS cantidad_ventas
 FROM libro
 JOIN libro_cliente
@@ -52,6 +53,7 @@ ORDER BY cantidad_ventas DESC;
 -- -----------------------------------------------------
 -- Consulta para conocer los autores con más libros vendidos
 -- -----------------------------------------------------
+CREATE VIEW autores_con_mas_libros_vendidos AS
 SELECT autor.nombre AS nombre_autor, COUNT(libro.ISBN) AS cantidad_ventas
 FROM autor
 JOIN libro_autor ON autor.id = libro_autor.id_autor
