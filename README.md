@@ -1,4 +1,4 @@
-# Consultas y Vistas
+# Consultas, Vistas, Procedimientos y Trigger
 
 *“Cada día trae una nueva oportunidad”*
 
@@ -22,9 +22,21 @@ Utilizando el ejercicio del hospital realizado por sus compañeros, realice lo s
 
 - Convierta el MR en una base de datos en MySQL utilizando sentencias SQL o el diagrama EER.
 - Complete la información para las tablas realizadas con al menos 5 registros por tabla.
-- Realice una consulta que me permita conocer qué medicamentos a tomado cada paciente y la dosis suministrada.
+- Realice una consulta que me permita conocer qué medicamentos ha tomado cada paciente y la dosis suministrada.
 - Realice una consulta que me permita conocer qué enfermeros estuvieron en los procedimientos de los pacientes.
 - Realice las tres vistas que considere sean las más importantes y explique el motivo de su selección.
+
+**Tercera actividad (TALLER 6):**
+- Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas de 
+la librería (primera actividad).
+- Elabore una nueva tabla llamada "control_de_cambios_librería" la cual debe contener 3 columnas 
+(usuario, acción, fecha) y guarde utilizando 2 Triggers el nombre del usuario que agregó o eliminó un registro en la 
+tabla seleccionada en el punto anterior.
+- Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas del
+Hospital (segunda actividad).
+- Elabore una nueva tabla llamada "control_de_cambios_hospital" la cual debe contener 3 columnas 
+(usuario, acción, fecha) y guarde utilizando 2 Triggers el nombre del usuario que agregó o eliminó un registro en la 
+tabla seleccionada en el punto anterior.
 
 **Condiciones de la entrega:**
 1. PDF con la solución donde se evidencie el paso a paso que lo llevo a la solución.
