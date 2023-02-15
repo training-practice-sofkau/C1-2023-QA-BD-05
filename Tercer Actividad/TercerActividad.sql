@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS ControlCambiosLibreria (
   PRIMARY KEY (usuario, accion, fecha));
 
 
--- Triger  de insertar cliente
+-- Trigger  de insertar cliente
 DELIMITER //
 CREATE TRIGGER TriggerInsertarCliente
 AFTER INSERT ON cliente
@@ -347,7 +347,7 @@ BEGIN
 END//
 DELIMITER ;
 
-
+-- Trigger de eliminar
 DELIMITER //
 CREATE TRIGGER TriggerEliminarClienye
 AFTER DELETE ON cliente
