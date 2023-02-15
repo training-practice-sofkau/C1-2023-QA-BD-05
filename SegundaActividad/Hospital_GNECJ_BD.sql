@@ -11,7 +11,7 @@ USE hospital_GNECJ;
 CREATE TABLE médico (
 	id_médico INT AUTO_INCREMENT,
     nombre_médico VARCHAR(40),
-    especialidad varchar(100),
+    especialidad VARCHAR(100),
     PRIMARY KEY (id_médico)
 );
 -- Tabla Teléfono del Médico
@@ -54,7 +54,7 @@ CREATE TABLE realizar (
 CREATE TABLE paciente (
 	id_paciente INT AUTO_INCREMENT,
     nombre_paciente VARCHAR(40),
-    dirección varchar(100),
+    dirección VARCHAR(100),
     id_procedimientoP INT,
     PRIMARY KEY (id_paciente),
     FOREIGN KEY (id_procedimientoP) REFERENCES procedimiento (id_procedimiento)

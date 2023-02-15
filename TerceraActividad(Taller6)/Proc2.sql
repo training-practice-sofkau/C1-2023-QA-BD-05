@@ -60,4 +60,4 @@ DELETE FROM medicamento WHERE id_medicamento = idM;
 END;
 //
 -- Llamada al procedimiento para probar
-CALL borrar_medicamento_por_id (8);
+CALL borrar_medicamento_por_id (6);
