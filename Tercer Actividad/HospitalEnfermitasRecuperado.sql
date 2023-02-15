@@ -263,7 +263,7 @@ BEGIN
     INSERT INTO Procedimiento (idProcedimiento, tipoProcedimiento) VALUES (idProcedimientoLocal, tipoProcedimientoLocal);
 END//
 DELIMITER ;
-CALL AgregarProcedimiento("100000", "Cita de la tercera edad");
+CALL AgregarProcedimiento("00000000", "Control ansiedad");
 
 
 -- Procedimiento borrar procedimineto medico 
@@ -274,5 +274,48 @@ BEGIN
     DELETE FROM Procedimiento WHERE idProcedimiento = idProcedimientoLocal ;
 END//
 DELIMITER ;
-CALL BorrarProcedimiento('100000');
+CALL BorrarProcedimiento('00000000');
+
+-- Procedimiento consultar procedimiento medico
+
+DELIMITER //
+CREATE PROCEDURE ConsultarProcedimiento (IN idProcedimientoLocal VARCHAR(20))
+BEGIN
+    SELECT * FROM Procedimiento WHERE idProcedimiento = idProcedimientoLocal ;
+END//
+DELIMITER ;
+CALL ConsultarProcedimiento('1');
+
+-- Tabla control de cambios
+
+CREATE TABLE IF NOT EXISTS ControlCambiosProcedimientoMedico (
+  usuario VARCHAR(45) NOT NULL,
+  accion VARCHAR(10) NOT NULL,
+  fecha DATETIME NOT NULL,
+  PRIMARY KEY (usuario, accion, fecha)
+);
+
+-- TRigger para saber quien ingreso nuevos procedimientos medicos
+DELIMITER //
+CREATE TRIGGER TriggerIngresarProcedimientosMedicos
+AFTER INSERT ON Procedimiento
+FOR EACH ROW
+BEGIN
+  INSERT INTO ControlCambiosProcedimientoMedico (usuario, accion, fecha)
+  VALUES (USER(), "Agrego", NOW());
+END//
+DELIMITER ;
+
+-- Trigger  para saber quien elimino datos en la tabla de procedimientos medicos 
+DELIMITER //
+CREATE TRIGGER TriggerEliminarProcedimientosMedicos
+AFTER DELETE ON Procedimiento
+FOR EACH ROW
+BEGIN
+  INSERT INTO ControlCambiosProcedimientoMedico (usuario, accion, fecha)
+  VALUES (USER(), "Elimino", NOW());
+END//
+DELIMITER ;
+
+DROP TRIGGER TriggerEliminarProcedimientosMedicos
 
