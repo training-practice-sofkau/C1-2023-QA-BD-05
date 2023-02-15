@@ -1,0 +1,26 @@
+Codigo para generar la busqueda de libro junto al nombre del autor
+-------------------------------------------------------------------------------------------------------------------
+SELECT libreriabuscalibre.libro.titulo, libreriabuscalibre.autor.nombre
+FROM libreriabuscalibre.libro
+JOIN libreriabuscalibre.libro_autor ON libreriabuscalibre.libro.ISBN = libreriabuscalibre.libro_autor.ISBN_libro
+JOIN libreriabuscalibre.autor ON libreriabuscalibre.autor.id = libreriabuscalibre.libro_autor.id_autor;
+-------------------------------------------------------------------------------------------------------------------
+Vista para validar que libros ha comprado cada cliente
+-------------------------------------------------------------------------------------------------------------------
+CREATE VIEW vista_libros_comprados_cliente AS
+SELECT libreriabuscalibre.cliente.nombre AS Nombre_Cliente, libreriabuscalibre.libro.titulo AS Titulo_Libro
+FROM libreriabuscalibre.cliente
+JOIN libreriabuscalibre.libro_cliente ON libreriabuscalibre.cliente.cedula = libro_cliente.id_cliente
+JOIN libreriabuscalibre.libro ON libreriabuscalibre.libro_cliente.ISBN_libro_cliente = libro.ISBN;
+SELECT * FROM vista_libros_comprados_cliente;
+--------------------------------------------------------------------------------------------------------------------
+Vista libros mas populares
+---------------------------------------------------------------------------------------------------------------------
+CREATE VIEW vista_libros_populares AS
+SELECT  libreriabuscalibre.libro.titulo AS Titulo_Libro, COUNT(*) AS Numero_Ventas
+FROM  libreriabuscalibre.libro
+JOIN  libreriabuscalibre.libro_cliente ON  libreriabuscalibre.libro.ISBN =  libreriabuscalibre.libro_cliente.ISBN_libro_cliente
+GROUP BY libro.titulo
+ORDER BY Numero_Ventas DESC;
+SELECT * FROM vista_libros_populares;
+---------------------------------------------------------------------------------------------------------------------------------
