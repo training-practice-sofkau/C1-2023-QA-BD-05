@@ -1,64 +1,58 @@
-# Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas de la librería (primera actividad)
+# Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas de la librería (primera actividad).
 
-#PARA REALIZAR EL EJERCICIO SE SELECCIONA LA TABLA PACIENTE
-USE hospitalqa;
+#PARA REALIZAR EL EJERCICIO SE SELECCIONA LA TABLA CLIENTE
+USE libreriabuscalibre;
 
 #PROCEDIMIENTO PARA AGREGAR UN REGISTRO
 DELIMITER // 
-CREATE PROCEDURE agregarPaciente
+CREATE PROCEDURE agregarCliente
 (
-IN _id_paciente VARCHAR (10),
-IN _nombre VARCHAR(45),
-IN _direccion VARCHAR(45),
-IN _id_procedimient VARCHAR(45)
+IN _cedula VARCHAR (10),
+IN _nombre VARCHAR(45)
 )
 BEGIN 
-INSERT INTO paciente (id_paciente,nombre,direccion,id_procedimient)
- values (_id_paciente,_nombre,_direccion,_id_procedimient);
+INSERT INTO cliente (cedula,nombre)
+ values (_cedula,_nombre);
 END
 // 
-#Llamar el procedimiento agregar paciente
-CALL agregarPaciente('20','Flor Ramirez','Fusagasuga','3');
+#Llamar el procedimiento agregar cliente
+CALL agregarCliente('100','Flor Jimenez');
 
-# PROCEDIMIENTO PARA CONSULTAR PACIENTE
+# PROCEDIMIENTO PARA CONSULTAR CLIENTE
 DELIMITER //
-CREATE PROCEDURE buscar_paciente(IN _id_paciente VARCHAR (10))
+CREATE PROCEDURE buscar_cliente(IN _cedula VARCHAR (10))
 BEGIN
-SELECT * FROM paciente WHERE id_paciente = _id_paciente;
+SELECT * FROM cliente WHERE cedula = _cedula;
 END
 //
-#Llamar procedimiento buscar paciente
-CALL buscar_paciente(20);
+#Llamar procedimiento buscar cliente
+CALL buscar_cliente(100);
 
-# PROCEDIMIENTO ACTUALIZAR PACIENTE
+# PROCEDIMIENTO ACTUALIZAR cliente
 DELIMITER //
-CREATE PROCEDURE modificar_paciente
+CREATE PROCEDURE modificar_cliente
 (
-IN _id_paciente VARCHAR (10),
-IN _nombre VARCHAR(45),
-IN _direccion VARCHAR(45),
-IN _id_procedimient VARCHAR(45)
+IN _cedula VARCHAR (10),
+IN _nombre VARCHAR(45)
 )
 BEGIN
-UPDATE paciente 
-SET  nombre = _nombre,
-direccion = _direccion,
-id_procedimient = _id_procedimient
-WHERE id_paciente = _id_paciente;
+UPDATE cliente 
+SET  nombre = _nombre
+WHERE cedula = _cedula;
 END
 //
-#Llamar procedimiento modificar paciente
-CALL modificar_paciente ('20','Carla Mendez','Fusagasuga','2');
+#Llamar procedimiento modificar cliente
+CALL modificar_cliente ('100','Carlos Torres');
 
-#PROCEDIMIENTO BORRAR PACIENTE
+#PROCEDIMIENTO BORRAR CLIENTE
 DELIMITER //
-CREATE PROCEDURE borrar_paciente 
+CREATE PROCEDURE borrar_cliente
 (
-IN _id_paciente VARCHAR (10)
+IN _cedula VARCHAR (10)
 )
 BEGIN
-DELETE FROM paciente WHERE id_paciente = _id_paciente;
+DELETE FROM cliente WHERE cedula = _cedula;
 END
 //
-#Llamar procedimiento borrar paciente
-CALL borrar_paciente(20);
+#Llamar procedimiento borrar cliente
+CALL borrar_cliente(100);
