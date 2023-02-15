@@ -1,0 +1,58 @@
+
+-----------------------------------------------------------------------------------------------------------------
+Consulta Pacientes y medicamentos asignados
+----------------------------------------------------------------------------------------------------------------
+SELECT procedimiento_medico.paciente.nombre_paciente, procedimiento_medico.medicamento.nombre_medicamento, procedimiento_medico.medicamento.dosis_medicamento 
+FROM procedimiento_medico.paciente, procedimiento_medico.receta_medicamento, procedimiento_medico.medicamento 
+WHERE procedimiento_medico.paciente.id_paciente = procedimiento_medico.receta_medicamento.id_paciente 
+AND procedimiento_medico.receta_medicamento.id_medicamento = procedimiento_medico.medicamento.id_medicamento;
+----------------------------------------------------------------------------------------------------------------
+Consulta enfermero y procedimiento
+----------------------------------------------------------------------------------------------------------------
+SELECT procedimiento_medico.enfermero.nombre_enfermero, procedimiento_medico.procedimiento.tipo_procedimiento 
+FROM procedimiento_medico.enfermero, procedimiento_medico.procedimiento 
+WHERE procedimiento_medico.enfermero.id_enfermero = procedimiento_medico.procedimiento.id_enfermero
+----------------------------------------------------------------------------------------------------------------
+Vista que muestra el nombre de paciente, nombre del procedimineto, nombre del medico que realiza el procedimiento y
+nombre del enfermero que asiste al medico
+----------------------------------------------------------------------------------------------------------------
+CREATE VIEW vista_procedimientos AS
+SELECT 
+  procedimiento_medico.paciente.nombre_paciente, 
+  procedimiento_medico.procedimiento.tipo_procedimiento, 
+  procedimiento_medico.medico.nombre_medico, 
+  procedimiento_medico.enfermero.nombre_enfermero
+FROM 
+  procedimiento_medico.paciente 
+  JOIN procedimiento_medico.procedimiento ON procedimiento_medico.paciente.id_paciente = procedimiento_medico.procedimiento.id_paciente 
+  JOIN procedimiento_medico.medico ON procedimiento_medico.procedimiento.id_medico = procedimiento_medico.medico.id_medico 
+  JOIN procedimiento_medico.enfermero ON procedimiento_medico.procedimiento.id_enfermero = procedimiento_medico.enfermero.id_enfermero;
+ SELECT * FROM vista_procedimientos;
+-------------------------------------------------------------------------------------------------------------------------------
+Vista paciente medicamento dosis
+-------------------------------------------------------------------------------------------------------------------------------
+CREATE VIEW vista_medicamentos_prescripcion AS
+SELECT 
+  procedimiento_medico.medico.nombre_medico, 
+  procedimiento_medico.paciente.nombre_paciente, 
+  procedimiento_medico.medicamento.nombre_medicamento, 
+  procedimiento_medico.medicamento.dosis_medicamento
+FROM 
+  procedimiento_medico.medico 
+  JOIN procedimiento_medico.procedimiento ON procedimiento_medico.medico.id_medico = procedimiento_medico.procedimiento.id_medico 
+  JOIN procedimiento_medico.paciente ON procedimiento_medico.procedimiento.id_paciente = procedimiento_medico.paciente.id_paciente 
+  JOIN procedimiento_medico.receta_medicamento ON procedimiento_medico.paciente.id_paciente = procedimiento_medico.receta_medicamento.id_paciente 
+  JOIN procedimiento_medico.medicamento ON procedimiento_medico.receta_medicamento.id_medicamento = procedimiento_medico.medicamento.id_medicamento;
+----------------------------------------------------------------------------------------------------------------------------------------------
+vista paciente enfermero asignado
+----------------------------------------------------------------------------------------------------------------------------------------------
+CREATE VIEW vista_pacientes_enfermeros AS
+SELECT 
+  procedimiento_medico.paciente.nombre_paciente, 
+  procedimiento_medico.enfermero.nombre_enfermero,
+  procedimiento_medico.contacto_enfermero.telefono_enfermero
+FROM 
+  procedimiento_medico.paciente 
+  INNER JOIN procedimiento_medico.procedimiento ON procedimiento_medico.paciente.id_paciente = procedimiento_medico.procedimiento.id_paciente 
+  INNER JOIN procedimiento_medico.enfermero ON procedimiento_medico.procedimiento.id_enfermero = procedimiento_medico.enfermero.id_enfermero 
+  INNER JOIN procedimiento_medico.contacto_enfermero ON procedimiento_medico.contacto_enfermero.id_enfermero = procedimiento_medico.enfermero.id_enfermero;  
