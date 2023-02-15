@@ -7,9 +7,7 @@ USE `Hospital` ;
 
 CREATE TABLE `Hospital`.`tb_procedimiento` (
   `id_procedimiento` VARCHAR(20) PRIMARY KEY,
-  `id_medico_procedimiento` VARCHAR(20),
-  FOREIGN KEY (`id_medico_procedimiento`) 
-  REFERENCES `Hospital`.`dll_medico_procedimiento`(`id_medico_procedimiento`)
+  `tipo_procedimiento` VARCHAR(20)
 )
 ENGINE = InnoDB;
 
@@ -31,9 +29,8 @@ CREATE TABLE `Hospital`.`tb_paciente` (
   `direccion` VARCHAR(100) NOT NULL,
   `id_procedimiento` VARCHAR(50),
   PRIMARY KEY (`id_paciente`),
-  CONSTRAINT `fk_id_procedimiento`
-    FOREIGN KEY (`id_procedimiento`) 
-    REFERENCES `tb_procedimiento`(`id_procedimiento`)
+  FOREIGN KEY (`id_procedimiento`) 
+  REFERENCES `Hospital`.`tb_procedimiento`(`id_procedimiento`)
 ) ENGINE = InnoDB;
 
 CREATE TABLE `Hospital`.`tb_factura` (
