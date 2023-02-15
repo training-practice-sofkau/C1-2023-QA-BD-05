@@ -35,3 +35,17 @@ Utilizando el ejercicio del hospital realizado por sus compañeros realice lo si
 | Libros SQL | https://github.com/Juanes1990/Recursos-PDF.git |
 | Videos de MySQL | https://www.youtube.com/playlist?list=PL-Mlm_HYjCo-T8_c4cq_Turulaizs4tgj |
 | Página de sentencias | https://www.w3schools.com/mysql/mysql_insert.asp |
+Tercera actividad (TALLER 6):
+
+Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas de la librería (primera actividad).
+Elabore una nueva tabla llamada "control_de_cambios_librería" la cual debe contener 3 columnas (usuario, accion, fecha) y guarde utilizando 2 Triggers el nombre del usuario que agrego o elimino un registro en la tabla seleccionada en el punto anterior.
+Elabore 4 procedimientos almacenados que me permitan agregar, actualizar, consultar y borrar, en una de las tablas del Hospital (segunda actividad).
+Elabore una nueva tabla llamada "control_de_cambios_hospital" la cual debe contener 3 columnas (usuario, accion, fecha) y guarde utilizando 2 Triggers el nombre del usuario que agrego o elimino un registro en la tabla seleccionada en el punto anterior.
+Condiciones de la entrega:
+
+PDF con la solución donde se evidencie el paso a paso que lo llevo a la solución.
+Archivos SQL necesarios para replicar la solución incluyendo las sentencias para insertar datos.
+Excelente uso de los commits.
+Despúes de realizar el trabajo responda ¿Qué le agregaría al modelo para dar mas información y esa información cúal seria?
+Una vez realizado el PR se considera como entrega.
+Hora de entrega 11.55 PM

@@ -127,3 +127,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO `libreriabuscalibre`.`autor` (`id`, `fecha de nacimiento`, `nacionalidad`, `nombre`) VALUES ('3423', '11/01/1994', 'Colombiana', 'Juan');
+INSERT INTO `libreriabuscalibre`.`autor` (`id`, `fecha de nacimiento`, `nacionalidad`, `nombre`) VALUES ('6566', '13/06/1992', 'Colombiana', 'Raúl');

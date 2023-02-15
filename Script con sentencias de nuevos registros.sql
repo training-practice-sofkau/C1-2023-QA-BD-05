@@ -25,25 +25,25 @@ VALUES
 
 INSERT INTO `LibreriaBuscaLibre`.`libro` (`ISBN`, `titulo`, `numero_paginas`, `nombre_editorial`) 
 VALUES 
-('42-7452-8', 'Cien años de soledad', '522', 'Norma'),
-('42-7453-5', 'El amor en los tiempos del cólera', '302', 'El Planeta'),
-('42-7454-2', 'Crónica de una muerte anunciada', '150', 'Norma'),
-('42-7455-9', 'El olvido que seremos', '204', 'Santillana'),
-('42-7456-6', 'Del amor y otros demonios', '400', 'Aguilar'),
-('42-7467-2', 'La vorágine', '155', 'Norma'),
-('42-7468-9', 'Ojos de perro azul', '99', 'Aguilar'),
-('42-7469-6', 'La increíble y triste historia de la cándida Eréndira y de su abuela desalmada', '80', 'El Planeta'),
-('42-7470-2', 'El coronel no tiene quien le escriba', '204', 'Norma'),
-('42-1598-8', 'La hojarasca', '150', 'Santillana'),
-('42-0682-9', 'Memoria de mis putas tristes', '112', 'El Planeta'),
-('42-1564-3', 'El amor en los tiempos del cólera', '368', 'Norma'),
-('42-1889-7', 'Del amor y otros demonios', '160', 'Aguilar'),
-('42-0299-9', 'Crónica de una muerte anunciada', '120', 'El Planeta'),
-('42-2814-9', 'El ruido de las cosas al caer', '288', 'Santillana'),
-('42-2218-9', 'Noticia de un secuestro', '352', 'Aguilar'),
-('42-1071-1', 'El otoño del patriarca', '416', 'Norma'),
-('42-3073-3', 'El general en su laberinto', '320', 'El Planeta'),
-('42-2993-5', 'Vivir para contarla', '624', 'Santillana');
+('42-7452-8','Cien años de soledad','522','Norma'),
+('42-7453-5','El amor en los tiempos del cólera','302','El Planeta'),
+('42-7454-2','Crónica de una muerte anunciada','150','Norma'),
+('42-7455-9','El olvido que seremos', '204', 'Santillana'),
+('42-7456-6','Del amor y otros demonios', '400', 'Aguilar'),
+('42-7467-2','La vorágine', '155', 'Norma'),
+('42-7468-9','Ojos de perro azul', '99', 'Aguilar'),
+('42-7469-6','La increíble y triste historia de la cándida','80','El Planeta'),
+('42-7470-2','El coronel no tiene quien le escriba','204','Norma'),
+('42-1598-8','La hojarasca','150','Santillana'),
+('42-0682-9','Memoria de mis putas tristes','112','El Planeta'),
+('42-1564-3','El amor en los tiempos del cólera','368','Norma'),
+('42-1889-7','Del amor y otros demonios','160','Aguilar'),
+('42-0299-9','Crónica de una muerte anunciada','120','El Planeta'),
+('42-2814-9','El ruido de las cosas al caer','288','Santillana'),
+('42-2218-9','Noticia de un secuestro','352','Aguilar'),
+('42-1071-1','El otoño del patriarca','416','Norma'),
+('42-3073-3','El general en su laberinto','320','El Planeta'),
+('42-2993-5','Vivir para contarla','624','Santillana');
 
 INSERT INTO `LibreriaBuscaLibre`.`libro_cliente` (`ISBN_libro_cliente`, `id_cliente`)
 VALUES 
@@ -85,6 +85,9 @@ VALUES
 ('4567890123', '3118887652'),
 ('7890123456', '3114884652'),
 ('7890123456', '3113884652');
+
+
+
 
 
 
