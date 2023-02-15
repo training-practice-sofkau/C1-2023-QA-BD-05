@@ -52,3 +52,5 @@ sería?
 | Libros SQL           | https://github.com/Juanes1990/Recursos-PDF.git                           |
 | Videos de MySQL      | https://www.youtube.com/playlist?list=PL-Mlm_HYjCo-T8_c4cq_Turulaizs4tgj |
 | Página de sentencias | https://www.w3schools.com/mysql/mysql_insert.asp                         |
+
+![Agradecimiento](TerceraActividad(Taller6)/I.png)
