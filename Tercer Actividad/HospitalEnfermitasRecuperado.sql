@@ -264,3 +264,15 @@ BEGIN
 END//
 DELIMITER ;
 CALL AgregarProcedimiento("100000", "Cita de la tercera edad");
+
+
+-- Procedimiento borrar procedimineto medico 
+DELIMITER //
+CREATE PROCEDURE BorrarProcedimiento (IN idProcedimientoLocal VARCHAR(20))
+
+BEGIN
+    DELETE FROM Procedimiento WHERE idProcedimiento = idProcedimientoLocal ;
+END//
+DELIMITER ;
+CALL BorrarProcedimiento('100000');
+
