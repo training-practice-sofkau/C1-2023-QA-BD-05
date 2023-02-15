@@ -289,10 +289,6 @@ JOIN telefono_cliente ON cliente.cedula = telefono_cliente.cedula_cliente;
 
 
 
-
-
-
-
 -- Procedimiento agregar usuario
 DELIMITER //
 CREATE PROCEDURE AgregarNuevoCliente ( IN CedulaLocal VARCHAR(10), IN NombreLocal VARCHAR(45))
@@ -301,4 +297,63 @@ BEGIN
 END//
 DELIMITER ;
 
-CALL AgregarNuevoCliente("000000", "Santy");
+CALL AgregarNuevoCliente("10000000", "UsuarioParaAgregar");
+
+
+-- Procedimiento actualizar cliente 
+DELIMITER //
+CREATE PROCEDURE ActualizarCliente (IN cedulaLocal VARCHAR(10),IN nombreLocal VARCHAR(45))
+BEGIN
+    UPDATE cliente SET nombre = nombreLocal WHERE cedula = cedulaLocal;
+END//
+DELIMITER ;
+CALL ActualizarCliente('000000', 'Tortuguita');
+
+-- Procedimiento para eliminar clientes 
+DELIMITER //
+CREATE PROCEDURE EliminarCliente (IN cedulaLocal VARCHAR(10))
+BEGIN
+    DELETE FROM cliente WHERE cedula = cedulaLocal;
+END//
+DELIMITER ;
+CALL EliminarCliente('2');
+
+
+DELIMITER //
+CREATE PROCEDURE ConsultarCliente (IN cedulaLocal VARCHAR(10))
+BEGIN
+    SELECT * FROM cliente WHERE cedula = cedulaLocal;
+END//
+DELIMITER ;
+CALL ConsultarCliente('7');
+
+
+-- Tabla ControlCambiosLibreria 
+CREATE TABLE IF NOT EXISTS ControlCambiosLibreria (
+  usuario VARCHAR(45) NOT NULL,
+  accion VARCHAR(10) NOT NULL,
+  fecha DATETIME NOT NULL,
+  PRIMARY KEY (usuario, accion, fecha));
+
+
+-- Triger  de insertar cliente
+DELIMITER //
+CREATE TRIGGER TriggerInsertarCliente
+AFTER INSERT ON cliente
+FOR EACH ROW
+BEGIN
+  INSERT INTO ControlCambiosLibreria (usuario, accion, fecha)
+  VALUES (USER(), "Agregar", NOW());
+END//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER TriggerEliminarClienye
+AFTER DELETE ON cliente
+FOR EACH ROW
+BEGIN
+  INSERT INTO ControlCambiosLibreria (usuario, accion, fecha)
+  VALUES (USER(), "Eliminar", NOW());
+END//
+DELIMITER ;
