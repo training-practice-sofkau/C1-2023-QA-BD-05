@@ -53,10 +53,10 @@ foreign key(idProcedimientofkPaciente) references Procedimiento(idProcedimiento)
 );
 
 Create Table TelefonoPaciente(
-idPaciente varchar(20),
+idPacienteFK varchar(20),
 telefono varchar(50),
-primary key(idPaciente,telefono),
-foreign key(idPaciente) references Paciente(idPaciente)
+primary key(idPacienteFK,telefono),
+foreign key(idPacienteFK) references Paciente(idPaciente)
 );
 
 Create Table Facture(
@@ -150,7 +150,7 @@ values
 
 
 -- Registros telefono pacientes
-insert into telefonoPaciente(`idPaciente`,`telefono`) 
+insert into telefonoPaciente(`idPacienteFK`,`telefono`) 
 values
 ("1","123456789"),
 ("2","23456789"),
@@ -226,4 +226,24 @@ SELECT * FROM HistoriaClinica;
 CREATE VIEW HistoriaClinica as 
 SELECT Paciente.nombrePaciente as "Paciente", Paciente.direccion as "Direccion", Medicamento.nombreMedicamento as "Medicamento", Medicamento.dosis as "Dosis"
 FROM Paciente INNER JOIN relacionPacienteMedicamento on idPaciente = relacionPacienteMedicamento.idPacienteFK
-INNER JOIN Medicamento on idMedicamento = relacionPacienteMedico.idMedicamentoFK;
+INNER JOIN Medicamento on idMedicamento = relacionPacienteMedicamento.idMedicamentoFK;
+
+-- Vista  personal involucrado cirugia 
+SELECt * FROM PersonalInvolucradoCirugia;
+CREATE VIEW PersonalInvolucradoCirugia AS
+SELECT Paciente.nombrePaciente AS "Paciente", Medico.nombreMedico "Medico", Enfermero.nombreEnfermero AS "Enfermero", Procedimiento.tipoProcedimiento AS "Procedimiento"
+
+FROM Paciente INNER JOIN Procedimiento ON idProcedimientofkPaciente = Procedimiento.idProcedimiento
+INNER JOIN  relacionMedicoProcedimiento ON idProcedimiento= relacionMedicoProcedimiento.idProcedimientofkRMP
+INNER JOIN Medico  ON idMedico = relacionMedicoProcedimiento.idMedicofkRMP
+INNER JOIN Enfermero ON idMedicofkM = Medico.idMedico;
+
+-- Vista para llamar a los pacientes 
+CREATE VIEW VistaTelefonoPaciente AS
+SELECT Paciente.nombrePaciente, Telefono
+FROM Paciente
+JOIN TelefonoPaciente ON Paciente.idPaciente = TelefonoPaciente.idPacienteFK;
+
+DELIMITER //
+CREATE PROCEDURE crearRegistro () 
+
