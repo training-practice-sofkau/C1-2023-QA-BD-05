@@ -44,11 +44,11 @@ VALUES
 
 INSERT INTO `Hospital`.`tb_enfermero` (`id_enfermero`,`nombre_enfermero`,`apellido_enfermero`,`id_medico`) 
 VALUES 
-('E006', 'José','Pérez', 'M004'),
-('E007', 'Ana','Castro', 'M005'),
-('E008', 'Elena','Ramírez', 'M002'),
-('E009', 'Pedro','Gómez', 'M001'),
-('E010', 'Sara','González', 'M003');
+('E006', 'José','Pérez', 'M006'),
+('E007', 'Ana','Castro', 'M007'),
+('E008', 'Elena','Ramírez', 'M008'),
+('E009', 'Pedro','Gómez', 'M009'),
+('E010', 'Sara','González', 'M010');
 
 INSERT INTO `Hospital`.`telefono_paciente2` (`id_paciente2`, `telefono2`) 
 VALUES 
@@ -60,19 +60,19 @@ VALUES
 
 INSERT INTO `Hospital`.`dll_paciente_medicamento` (`id_paciente_medicamento`,`id_paciente`, `id_medicamento`)
 VALUES 
-('987','P005', 'M002'),
-('932','P008', 'M003'),
-('931','P003', 'M001'),
-('901','P009', 'M002'),
-('902','P001', 'M004');
+('987','P005', 'ME002'),
+('932','P008', 'ME003'),
+('931','P003', 'ME001'),
+('901','P009', 'ME002'),
+('902','P001', 'ME004');
        
 INSERT INTO `Hospital`.`tb_medicamento` (`id_medicamento`, `nombre_medicamento`, `dosis`)
 VALUES 
-('M004', 'Amoxicilina', 12.50),
-('M003', 'Ibuprofeno', 8.20),
-('M002', 'Paracetamol', 6.50),
-('M005', 'Lorazepam', 20.00),
-('M001', 'Aspirina', 5.00);
+('ME004', 'Amoxicilina', '3 al día'),
+('ME003', 'Ibuprofeno', '1 al día'),
+('ME002', 'Paracetamol', '2 al día'),
+('ME005', 'Lorazepam', '1 al día'),
+('ME001', 'Aspirina', '2 al día');
        
 INSERT INTO `Hospital`.`telefono_paciente3` (`id_paciente`, `telefono`)
 VALUES 
@@ -81,6 +81,14 @@ VALUES
 ('P010', '555-333-4567'),
 ('P008', '555-444-1234'),
 ('P002', '555-555-5678');
+
+INSERT INTO `Hospital`.`tb_paciente` (`id_paciente`, `nombre_paciente`, `apellido_paciente`, `direccion`, `id_procedimiento`)
+VALUES
+('P003', 'Jose', 'Mues', 'Dirección AV1', 'P006'),
+('P002', 'Roberto', 'Casas', 'Dirección AV2', 'P007'),
+('P008', 'Felipe', 'Vargas', 'Dirección AV3', 'P008'),
+('P006', 'Natalia', 'Robledo', 'Dirección AV4', 'P009'),
+('P010', 'Jose', 'Pinto', 'Dirección AV5', 'P010');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
